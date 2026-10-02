@@ -1,0 +1,20 @@
+KINETICS - LOGISTIC REGRESSION BASELINE
+============================================================
+
+ACCURACY       : 0.8081
+PRECISION      : 0.6700
+RECALL         : 0.5418
+F1             : 0.5991
+ROC_AUC        : 0.8472
+PR_AUC         : 0.6432
+
+Classification Report
+------------------------------------------------------------
+              precision    recall  f1-score   support
+
+      Stayed       0.85      0.90      0.87      1031
+     Churned       0.67      0.54      0.60       371
+
+    accuracy                           0.81      1402
+   macro avg       0.76      0.72      0.74      1402
+weighted avg       0.80      0.81      0.80      1402
