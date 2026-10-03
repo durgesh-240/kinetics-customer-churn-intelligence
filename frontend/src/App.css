@@ -2686,3 +2686,264 @@ h2 em {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ==========================================================
+   MOBILE COMPOSITION
+   Keep the editorial rhythm without full-screen dead space.
+========================================================== */
+
+@media (max-width: 720px) {
+
+  /* ---------- HERO ---------- */
+
+  .hero-stage {
+    min-height: 82svh;
+    min-height: 82vh;
+
+    padding-top:
+            max(86px, calc(env(safe-area-inset-top, 0px) + 72px));
+
+    padding-bottom:
+            max(58px, calc(env(safe-area-inset-bottom, 0px) + 48px));
+  }
+
+  .hero-content {
+    width: min(100%, 560px);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(40px, 11vw, 58px);
+    line-height: 0.94;
+  }
+
+  .hero-copy {
+    max-width: 34ch;
+    margin-top: 22px;
+    font-size: 15px;
+    line-height: 1.48;
+  }
+
+  .hero-actions {
+    margin-top: 28px;
+    gap: 15px;
+  }
+
+  .hero-status {
+    bottom: 24px;
+  }
+
+  /* ---------- FIRST STORY SECTION ---------- */
+
+  .story-stage {
+    min-height: auto;
+
+    gap: 34px;
+
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .story-copy h2,
+  .explanation-header h2,
+  .drivers-heading h2,
+  .analyzer-heading h2 {
+    font-size: clamp(42px, 11.5vw, 60px);
+    line-height: 0.94;
+  }
+
+  .story-copy p,
+  .explanation-header > p,
+  .drivers-heading > p,
+  .analyzer-heading > p {
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* ---------- BEHAVIOR ---------- */
+
+  .behavior-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .behavior-header {
+    gap: 18px;
+  }
+
+  .behavior-overview {
+    margin-top: 32px;
+  }
+
+  /* ---------- PREDICTION ---------- */
+
+  .prediction-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .empty-analysis {
+    margin-top: 32px;
+  }
+
+  .result-layout {
+    margin-top: 30px;
+    gap: 28px;
+  }
+
+  /* ---------- EXPLANATION ---------- */
+
+  .explanation-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .explanation-grid {
+    margin-top: 32px;
+  }
+
+  /* ---------- GLOBAL DRIVERS ---------- */
+
+  .drivers-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .drivers-list {
+    margin-top: 34px;
+  }
+
+  /* ---------- MODEL ---------- */
+
+  .model-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  /* ---------- RETENTION ---------- */
+
+  .retention-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .retention-summary {
+    margin-top: 34px;
+  }
+
+  /* ---------- ANALYZER ---------- */
+
+  .analyzer-stage {
+    min-height: auto;
+    padding-top: 76px;
+    padding-bottom: 76px;
+  }
+
+  .analyzer-card {
+    margin-top: 34px;
+  }
+
+  /* ---------- CLOSING ---------- */
+
+  .closing-stage {
+    min-height: 70svh;
+    min-height: 70vh;
+
+    padding-top: 76px;
+    padding-bottom: 100px;
+  }
+
+  /* ---------- BACKGROUND ORBITS ---------- */
+
+  .hero-orbit {
+    opacity: 0.55;
+  }
+
+  .orbit-one {
+    width: 125vw;
+    height: 125vw;
+  }
+
+  .orbit-two {
+    width: 78vw;
+    height: 78vw;
+  }
+
+  /* ---------- ATMOSPHERIC CIRCLES ---------- */
+
+  .ambient-one {
+    width: 95vw;
+    height: 95vw;
+    left: -52vw;
+    top: 12vh;
+  }
+
+  .ambient-two {
+    width: 82vw;
+    height: 82vw;
+    right: -48vw;
+    top: 58vh;
+  }
+}
+
+
+/* ==========================================================
+   VERY SMALL PHONES
+========================================================== */
+
+@media (max-width: 420px) {
+
+  .hero-stage {
+    min-height: 78svh;
+    min-height: 78vh;
+
+    padding-top:
+            max(78px, calc(env(safe-area-inset-top, 0px) + 66px));
+
+    padding-bottom:
+            max(50px, calc(env(safe-area-inset-bottom, 0px) + 42px));
+  }
+
+  .hero-content h1 {
+    font-size: clamp(38px, 10.8vw, 50px);
+  }
+
+  .hero-copy {
+    max-width: 31ch;
+    font-size: 14px;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+  }
+
+  .hero-status {
+    bottom: 18px;
+    font-size: 9px;
+  }
+
+  .story-stage,
+  .behavior-stage,
+  .prediction-stage,
+  .explanation-stage,
+  .drivers-stage,
+  .model-stage,
+  .retention-stage,
+  .analyzer-stage {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .closing-stage {
+    min-height: 62svh;
+    min-height: 62vh;
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+}

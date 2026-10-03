@@ -16,13 +16,14 @@ type Signal = {
     speed: number
 }
 
-const NODE_COUNT = 55
-const CONNECTION_DISTANCE = 190
-
 /*
  * KINETICS motion palette
  *
  * Warm editorial neutrals instead of cold blue.
+ *
+ * The mobile version intentionally uses lower opacity
+ * so the network remains atmospheric instead of becoming
+ * visually dense behind the content.
  */
 const COLORS = {
     line: 'rgba(91, 84, 77, 0.14)',
@@ -38,6 +39,81 @@ const COLORS = {
     signalGlow: 'rgba(57, 112, 91, 0.20)',
 
     accent: 'rgba(163, 67, 53, 0.48)',
+}
+
+/*
+ * ----------------------------------------------------------
+ * RESPONSIVE MOTION CONFIGURATION
+ * ----------------------------------------------------------
+ *
+ * Desktop:
+ *   Dense enough to communicate intelligence/network activity.
+ *
+ * Tablet:
+ *   Reduced density.
+ *
+ * Mobile:
+ *   Sparse network so the content remains readable.
+ *
+ * Small phones:
+ *   Very restrained network to avoid line clutter.
+ */
+const getMotionConfig = () => {
+    const width = window.innerWidth
+
+    if (width <= 420) {
+        return {
+            nodeCount: 18,
+            connectionDistance: 120,
+            signalCount: 5,
+            radiusMin: 1.0,
+            radiusMax: 2.0,
+            lineOpacity: 0.68,
+            signalOpacity: 0.72,
+            parallaxX: 10,
+            parallaxY: 8,
+        }
+    }
+
+    if (width <= 720) {
+        return {
+            nodeCount: 24,
+            connectionDistance: 140,
+            signalCount: 7,
+            radiusMin: 1.05,
+            radiusMax: 2.15,
+            lineOpacity: 0.72,
+            signalOpacity: 0.78,
+            parallaxX: 12,
+            parallaxY: 9,
+        }
+    }
+
+    if (width <= 1100) {
+        return {
+            nodeCount: 36,
+            connectionDistance: 155,
+            signalCount: 10,
+            radiusMin: 1.15,
+            radiusMax: 2.35,
+            lineOpacity: 0.86,
+            signalOpacity: 0.88,
+            parallaxX: 17,
+            parallaxY: 12,
+        }
+    }
+
+    return {
+        nodeCount: 55,
+        connectionDistance: 190,
+        signalCount: 14,
+        radiusMin: 1.3,
+        radiusMax: 2.8,
+        lineOpacity: 1,
+        signalOpacity: 1,
+        parallaxX: 24,
+        parallaxY: 18,
+    }
 }
 
 export default function MotionField() {
@@ -58,9 +134,12 @@ export default function MotionField() {
         }
 
         let animationFrame = 0
+
         let width = 0
         let height = 0
         let dpr = 1
+
+        let config = getMotionConfig()
 
         const mouse = {
             x: 0.5,
@@ -101,8 +180,8 @@ export default function MotionField() {
             ),
 
             radius: random(
-                1.3,
-                2.8,
+                config.radiusMin,
+                config.radiusMax,
             ),
 
             phase: random(
@@ -111,48 +190,95 @@ export default function MotionField() {
             ),
         })
 
-        for (
-            let index = 0;
-            index < NODE_COUNT;
-            index += 1
-        ) {
-            nodes.push(createNode())
+        const createSignal = (): Signal => ({
+            from:
+                Math.floor(
+                    Math.random() *
+                    config.nodeCount,
+                ),
+
+            to:
+                Math.floor(
+                    Math.random() *
+                    config.nodeCount,
+                ),
+
+            progress:
+                Math.random(),
+
+            speed:
+                random(
+                    0.0015,
+                    0.0035,
+                ),
+        })
+
+        const rebuildDensity = () => {
+            config = getMotionConfig()
+
+            /*
+             * Add or remove nodes according to
+             * the current viewport density.
+             */
+            while (
+                nodes.length <
+                config.nodeCount
+                ) {
+                nodes.push(createNode())
+            }
+
+            if (
+                nodes.length >
+                config.nodeCount
+            ) {
+                nodes.splice(
+                    config.nodeCount,
+                )
+            }
+
+            /*
+             * Rebuild signal count as well.
+             */
+            while (
+                signals.length <
+                config.signalCount
+                ) {
+                signals.push(
+                    createSignal(),
+                )
+            }
+
+            if (
+                signals.length >
+                config.signalCount
+            ) {
+                signals.splice(
+                    config.signalCount,
+                )
+            }
+
+            /*
+             * Make sure every signal references
+             * a valid node after a density change.
+             */
+            signals.forEach(
+                (signal) => {
+                    signal.from =
+                        Math.floor(
+                            Math.random() *
+                            config.nodeCount,
+                        )
+
+                    signal.to =
+                        Math.floor(
+                            Math.random() *
+                            config.nodeCount,
+                        )
+                },
+            )
         }
 
-        /*
-         * --------------------------------------------------
-         * CREATE DATA SIGNALS
-         * --------------------------------------------------
-         */
-
-        for (
-            let index = 0;
-            index < 14;
-            index += 1
-        ) {
-            signals.push({
-                from:
-                    Math.floor(
-                        Math.random() *
-                        NODE_COUNT,
-                    ),
-
-                to:
-                    Math.floor(
-                        Math.random() *
-                        NODE_COUNT,
-                    ),
-
-                progress:
-                    Math.random(),
-
-                speed:
-                    random(
-                        0.0015,
-                        0.0035,
-                    ),
-            })
-        }
+        rebuildDensity()
 
         /*
          * --------------------------------------------------
@@ -192,6 +318,28 @@ export default function MotionField() {
                 0,
                 0,
             )
+
+            /*
+             * Recalculate motion density when the
+             * viewport crosses a responsive breakpoint.
+             */
+            const previousNodeCount =
+                config.nodeCount
+
+            const previousSignalCount =
+                config.signalCount
+
+            const nextConfig =
+                getMotionConfig()
+
+            if (
+                previousNodeCount !==
+                nextConfig.nodeCount ||
+                previousSignalCount !==
+                nextConfig.signalCount
+            ) {
+                rebuildDensity()
+            }
         }
 
         /*
@@ -272,14 +420,19 @@ export default function MotionField() {
 
             /*
              * Very subtle parallax.
+             *
+             * The effect becomes much smaller on
+             * mobile so the network does not feel
+             * like it is moving excessively behind
+             * the text.
              */
             const mouseOffsetX =
                 (mouse.x - 0.5) *
-                24
+                config.parallaxX
 
             const mouseOffsetY =
                 (mouse.y - 0.5) *
-                18
+                config.parallaxY
 
             /*
              * ------------------------------------------------
@@ -338,7 +491,7 @@ export default function MotionField() {
 
                     if (
                         distanceBetween >
-                        CONNECTION_DISTANCE
+                        config.connectionDistance
                     ) {
                         continue
                     }
@@ -346,7 +499,7 @@ export default function MotionField() {
                     const strength =
                         1 -
                         distanceBetween /
-                        CONNECTION_DISTANCE
+                        config.connectionDistance
 
                     const firstX =
                         first.x *
@@ -382,7 +535,14 @@ export default function MotionField() {
 
                     /*
                      * Warm graphite lines.
+                     *
+                     * Mobile gets an additional opacity
+                     * reduction to prevent the network
+                     * from becoming visually heavy.
                      */
+                    context.globalAlpha =
+                        config.lineOpacity
+
                     context.strokeStyle =
                         strength > 0.55
                             ? COLORS.lineStrong
@@ -393,6 +553,8 @@ export default function MotionField() {
                         strength * 0.55
 
                     context.stroke()
+
+                    context.globalAlpha = 1
                 }
             }
 
@@ -433,8 +595,7 @@ export default function MotionField() {
                             0,
                             x,
                             y,
-                            node.radius *
-                            7,
+                            node.radius * 7,
                         )
 
                     glow.addColorStop(
@@ -451,6 +612,9 @@ export default function MotionField() {
                         1,
                         'rgba(132, 121, 109, 0)',
                     )
+
+                    context.globalAlpha =
+                        config.lineOpacity
 
                     context.fillStyle =
                         glow
@@ -487,6 +651,8 @@ export default function MotionField() {
                             : COLORS.node
 
                     context.fill()
+
+                    context.globalAlpha = 1
                 },
             )
 
@@ -530,13 +696,13 @@ export default function MotionField() {
                         signal.from =
                             Math.floor(
                                 Math.random() *
-                                NODE_COUNT,
+                                config.nodeCount,
                             )
 
                         signal.to =
                             Math.floor(
                                 Math.random() *
-                                NODE_COUNT,
+                                config.nodeCount,
                             )
                     }
 
@@ -583,6 +749,9 @@ export default function MotionField() {
                         'rgba(57, 112, 91, 0)',
                     )
 
+                    context.globalAlpha =
+                        config.signalOpacity
+
                     context.fillStyle =
                         signalGlow
 
@@ -623,6 +792,8 @@ export default function MotionField() {
                     context.fill()
 
                     context.shadowBlur = 0
+
+                    context.globalAlpha = 1
                 },
             )
 
