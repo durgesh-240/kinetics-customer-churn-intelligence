@@ -71,6 +71,55 @@ button {
 }
 
 /* ----------------------------------------------------------
+   MOTION INTELLIGENCE FIELD
+---------------------------------------------------------- */
+
+.motion-field {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+  pointer-events: none;
+
+  opacity: 1;
+
+  /*
+   * Important:
+   * normal preserves the purple/green signal
+   * strength against the cream background.
+   */
+  mix-blend-mode: normal;
+}
+
+/*
+ * Keep the actual interface above the motion layer.
+ */
+.site-header,
+.hero-stage,
+.story-stage,
+.prediction-stage,
+.explanation-stage,
+.drivers-stage,
+.retention-stage,
+.analyzer-stage,
+.closing-stage,
+.site-footer {
+  position: relative;
+  z-index: 10;
+}
+
+/*
+ * Keep the grain above the motion field but
+ * below the actual interface.
+ */
+.grain {
+  z-index: 4;
+}
+
+/* ----------------------------------------------------------
    ATMOSPHERE
 ---------------------------------------------------------- */
 

@@ -22,6 +22,7 @@ import type {
   FormEvent,
 } from 'react'
 import './App.css'
+import MotionField from './MotionField'
 
 type CustomerForm = {
   gender: string
@@ -259,6 +260,7 @@ function App() {
 
   return (
       <div className="kinetics-app">
+        <MotionField />
         <div
             className="scroll-meter"
             style={{
@@ -301,7 +303,21 @@ function App() {
               Model
             </a>
 
-            <a href="#retention">
+            <a
+                href={result ? "#retention" : "#analyzer"}
+                onClick={() => {
+                  if (!result) {
+                    setTimeout(() => {
+                      document
+                          .getElementById("analyzer")
+                          ?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                    }, 0);
+                  }
+                }}
+            >
               Retention
             </a>
 
@@ -1005,10 +1021,7 @@ function App() {
           </section>
 
           {result && (
-              <section
-                  id="retention"
-                  className="retention-stage"
-              >
+              <section id="retention" className="retention-stage">
                 <div className="retention-header">
                   <div>
                     <div className="eyebrow">
