@@ -63,43 +63,43 @@ const getMotionConfig = () => {
 
     if (width <= 420) {
         return {
-            nodeCount: 18,
-            connectionDistance: 120,
-            signalCount: 5,
-            radiusMin: 1.0,
-            radiusMax: 2.0,
-            lineOpacity: 0.68,
-            signalOpacity: 0.72,
-            parallaxX: 10,
-            parallaxY: 8,
+            nodeCount: 10,
+            connectionDistance: 90,
+            signalCount: 2,
+            radiusMin: 0.8,
+            radiusMax: 1.5,
+            lineOpacity: 0.32,
+            signalOpacity: 0.45,
+            parallaxX: 5,
+            parallaxY: 4,
         }
     }
 
     if (width <= 720) {
         return {
-            nodeCount: 24,
-            connectionDistance: 140,
-            signalCount: 7,
-            radiusMin: 1.05,
-            radiusMax: 2.15,
-            lineOpacity: 0.72,
-            signalOpacity: 0.78,
-            parallaxX: 12,
-            parallaxY: 9,
+            nodeCount: 14,
+            connectionDistance: 105,
+            signalCount: 3,
+            radiusMin: 0.9,
+            radiusMax: 1.7,
+            lineOpacity: 0.40,
+            signalOpacity: 0.50,
+            parallaxX: 7,
+            parallaxY: 5,
         }
     }
 
     if (width <= 1100) {
         return {
-            nodeCount: 36,
-            connectionDistance: 155,
-            signalCount: 10,
-            radiusMin: 1.15,
-            radiusMax: 2.35,
-            lineOpacity: 0.86,
-            signalOpacity: 0.88,
-            parallaxX: 17,
-            parallaxY: 12,
+            nodeCount: 30,
+            connectionDistance: 145,
+            signalCount: 7,
+            radiusMin: 1.1,
+            radiusMax: 2.2,
+            lineOpacity: 0.70,
+            signalOpacity: 0.75,
+            parallaxX: 14,
+            parallaxY: 10,
         }
     }
 

@@ -2947,3 +2947,221 @@ h2 em {
     padding-bottom: 80px;
   }
 }
+
+/* ==========================================================
+   KINETICS MOBILE REFINEMENT
+========================================================== */
+
+@media (max-width: 720px) {
+
+  /* --------------------------------------------------------
+     MOBILE MOTION FIELD
+     The network becomes atmosphere, not foreground content.
+  -------------------------------------------------------- */
+
+  .motion-field {
+    opacity: 0.52;
+  }
+
+  /* --------------------------------------------------------
+     REDUCE FULL-SCREEN DEAD SPACE
+  -------------------------------------------------------- */
+
+  .behavior-stage,
+  .model-stage,
+  .explanation-stage,
+  .drivers-stage,
+  .prediction-stage,
+  .retention-stage,
+  .analyzer-stage {
+    min-height: auto;
+  }
+
+  .behavior-stage,
+  .model-stage,
+  .explanation-stage,
+  .drivers-stage,
+  .prediction-stage,
+  .retention-stage,
+  .analyzer-stage {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  /* --------------------------------------------------------
+     ANALYZER
+  -------------------------------------------------------- */
+
+  .analyzer-stage {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .analyzer-heading {
+    margin-bottom: 0;
+  }
+
+  .analyzer-heading h2 {
+    font-size: clamp(42px, 11vw, 58px);
+    line-height: 0.94;
+  }
+
+  .analyzer-heading p {
+    margin-top: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .analyzer-card {
+    margin-top: 32px;
+    padding: 20px;
+    border-radius: 24px;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+  /* --------------------------------------------------------
+     FORM SECTIONS
+  -------------------------------------------------------- */
+
+  .form-section + .form-section {
+    margin-top: 28px;
+    padding-top: 28px;
+  }
+
+  .form-section-header {
+    margin-bottom: 17px;
+  }
+
+  .form-section-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .form-section-header h3 {
+    font-size: 14px;
+  }
+
+  /*
+   * Two columns on phones.
+   *
+   * This immediately cuts the vertical height of the
+   * analyzer dramatically.
+   */
+  .form-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 15px 10px;
+  }
+
+  .field > span {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .field input,
+  .field select {
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 11px;
+    font-size: 13px;
+  }
+
+  .select-wrap select {
+    padding-right: 28px;
+  }
+
+  .select-wrap svg {
+    right: 9px;
+  }
+
+  /* --------------------------------------------------------
+     LONG / IMPORTANT NUMERIC FIELDS
+  -------------------------------------------------------- */
+
+  .form-section:last-of-type .field:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* --------------------------------------------------------
+     API ERROR
+  -------------------------------------------------------- */
+
+  .api-error {
+    margin-top: 22px;
+    padding: 13px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  /* --------------------------------------------------------
+     ANALYZE BUTTON
+  -------------------------------------------------------- */
+
+  .analyze-button {
+    min-height: 54px;
+    margin-top: 22px;
+    border-radius: 999px;
+    font-size: 14px;
+  }
+
+  .form-footnote {
+    margin-top: 11px;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+}
+
+
+/* ==========================================================
+   SMALL PHONE
+========================================================== */
+
+@media (max-width: 420px) {
+
+  .motion-field {
+    opacity: 0.38;
+  }
+
+  .analyzer-stage {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .analyzer-card {
+    margin-top: 26px;
+    padding: 16px;
+    border-radius: 21px;
+  }
+
+  .form-grid {
+    gap: 14px 8px;
+  }
+
+  .field input,
+  .field select {
+    height: 40px;
+    padding-left: 9px;
+    padding-right: 9px;
+    font-size: 12px;
+  }
+
+  .field > span {
+    font-size: 9.5px;
+  }
+
+  .form-section + .form-section {
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+  .form-section-header {
+    margin-bottom: 15px;
+  }
+
+  .analyze-button {
+    min-height: 52px;
+  }
+}
