@@ -68,9 +68,7 @@ type PredictionResult = {
   global_drivers: GlobalDriver[]
 }
 
-const API_URL =
-    import.meta.env.VITE_API_URL ||
-    'http://127.0.0.1:8000'
+const API_URL = '/api'
 
 const initialCustomer: CustomerForm = {
   gender: 'Female',
@@ -226,7 +224,7 @@ function App() {
       console.error(error)
 
       setApiError(
-          'KINETICS could not reach the inference API. Make sure FastAPI is running on port 8000.',
+          'KINETICS could not complete the inference request. Please try again.',
       )
     } finally {
       setLoading(false)
